@@ -6,7 +6,7 @@
 
 ### One website. One goal: get my video in front of the admissions team in a single click.
 
-[![Watch the live site](https://img.shields.io/badge/▶%20Watch%20the%20live%20site-C6283D?style=for-the-badge&logoColor=white)](https://groton-school-video-response-web.vercel.app/)](https://groton-school-video-response-web.vercel.app/))
+[![Watch the live site](https://img.shields.io/badge/▶%20Watch%20the%20live%20site-C6283D?style=for-the-badge&logoColor=white)](https://groton-school-video-response-web.vercel.app/)]
 [![Watch the live site](https://img.shields.io/badge/▶%20Watch%20the%20live%20site-C6283D?style=for-the-badge&logoColor=white)]()
 
 ![Next.js](https://img.shields.io/badge/Next.js-App%20Router-0B1F3A?style=flat-square&logo=nextdotjs&logoColor=white)
