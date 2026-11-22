@@ -1,0 +1,173 @@
+@import "tailwindcss";
+
+@theme static {
+  --color-crimson: #c6283d;
+  --color-crimson-deep: #9e1b2e;
+  --color-navy: #0b1f3a;
+  --color-royal: #174ea6;
+  --color-paper: #f5f7fa;
+}
+
+@theme inline {
+  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
+  --font-hand: var(--font-caveat), "Segoe Print", "Comic Sans MS", cursive;
+  --font-sans: var(--font-instrument), system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 4.5rem;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-navy);
+  font-family: var(--font-instrument), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-navy);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-navy);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px #fff;
+}
+
+/* notebook graph paper, drawn on red */
+.graph {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.13) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.13) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+/* hidden notebook doodles, uncovered by the cursor */
+.doodle-layer {
+  opacity: 0.3;
+}
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .doodle-layer {
+    opacity: 1;
+    -webkit-mask-image: radial-gradient(230px circle at var(--px, -999px) var(--py, -999px), #000 0%, transparent 100%);
+    mask-image: radial-gradient(230px circle at var(--px, -999px) var(--py, -999px), #000 0%, transparent 100%);
+  }
+}
+
+/* scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* hero letters drop in once on load */
+@keyframes drop-in {
+  from {
+    opacity: 0;
+    transform: translateY(-70px) rotate(-14deg);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(8px) rotate(3deg);
+  }
+  to {
+    transform: none;
+  }
+}
+.drop-in {
+  animation: drop-in 0.75s cubic-bezier(0.3, 1.2, 0.5, 1) backwards;
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.spin-slow {
+  animation: spin-slow 16s linear infinite;
+}
+.spin-slow:hover {
+  animation-duration: 3s;
+}
+
+/* confetti when the video first plays */
+@keyframes confetti {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg) translateX(0) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(var(--a)) translateX(var(--d)) rotate(280deg) scale(0.4);
+    opacity: 0;
+  }
+}
+.confetti {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 11px;
+  height: 11px;
+  background: var(--c);
+  animation: confetti 1s ease-out forwards;
+}
+
+/* ticker bands */
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  animation: marquee 34s linear infinite;
+}
+.marquee-reverse .marquee-track {
+  animation-direction: reverse;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* interest icon animations, played on tile hover */
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-12deg); }
+  50% { transform: rotate(12deg); }
+}
+@keyframes nod {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px) rotate(-6deg); }
+}
+@keyframes ball {
+  0%, 100% { transform: translateY(0) scale(1, 1); }
+  45% { transform: translateY(-14px) scale(1, 1.05); }
+  90% { transform: translateY(0) scale(1.15, 0.85); }
+}
+@keyframes crown {
+  0%, 100% { transform: rotate(-14deg); }
+  50% { transform: rotate(14deg) translateY(-3px); }
+}
+@keyframes cube {
+  to { transform: rotate(90deg); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .group:hover .anim-wiggle { animation: wiggle 0.6s ease-in-out infinite; }
+  .group:hover .anim-nod { animation: nod 0.7s ease-in-out infinite; }
+  .group:hover .anim-ball { animation: ball 0.8s ease-in-out infinite; }
+  .group:hover .anim-crown { animation: crown 0.8s ease-in-out infinite; }
+  .group:hover .anim-cube { animation: cube 0.7s steps(1, end) infinite; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .marquee-track, .spin-slow, .drop-in { animation: none; }
+  .confetti { display: none; }
+  * { transition-duration: 0.01ms !important; }
+}
